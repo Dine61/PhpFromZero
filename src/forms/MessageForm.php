@@ -40,7 +40,7 @@ class MessageForm extends FormBuilder
         $this
             ->add("title", TextField::class, [
                 "id" => "title",
-                "required" => true,
+                //"required" => true,
                 "placeholder"=> "Titre du message",
                 "class"=> "form-control"
             ])

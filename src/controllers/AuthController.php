@@ -11,6 +11,8 @@ use App\Forms\RegisterForm;
 use App\Repositories\UserRepository;
 use PhpFromZero\Utils\Utils;
 
+use Symfony\Component\Validator\Validation;
+
 
 /**
  * Handle all thing about user's auth(entication|orization)
@@ -27,12 +29,20 @@ class AuthController extends SecurityController
     // User repository
     protected $userRepo;
 
+    protected  $validator;
+
+
 
     public function __construct()
     {
         parent::__construct();
 
         $this->userRepo = new UserRepository();
+
+
+        $this->validator = Validation::createValidatorBuilder()
+        ->addMethodMapping('loadValidatorMetadata')
+        ->getValidator();
     }
 
 
@@ -137,6 +147,17 @@ class AuthController extends SecurityController
             $user->setName($form->get("name"));
             $user->setAge($form->get("age"));
             $user->setPassword($hasedPassword);
+
+            
+            // Using symfony Validator to valide message data before saving in the database
+            $errors = $this->validator->validate($user);
+            if (count($errors) > 0) {
+
+                foreach ($errors as $error) {
+                    $errorMsg .= $error->getMessage(). '<br>';
+                }
+                goto sendResponse;
+            }
 
             // If any file, upload upload it and set the corresponded field
             $photo = $form->get("photo");

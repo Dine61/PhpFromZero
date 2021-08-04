@@ -8,6 +8,8 @@ use App\Repositories\MessageRepository;
 use PhpFromZero\Controller\BaseController;
 use PhpFromZero\Http\Request;
 use PhpFromZero\Http\Response;
+use Symfony\Component\Validator\Validation;
+
 
 /**
  * Message Controller
@@ -23,6 +25,7 @@ class MessageController extends BaseController
 
     // Message repository
     protected $messageRepo;
+    protected  $validator;
 
 
     public function __construct()
@@ -30,8 +33,11 @@ class MessageController extends BaseController
         parent::__construct();
 
         $this->messageRepo = new MessageRepository();
-    }
 
+        $this->validator = Validation::createValidatorBuilder()
+            ->addMethodMapping('loadValidatorMetadata')
+            ->getValidator();
+    }
 
     /**
      * List of message
@@ -132,6 +138,17 @@ class MessageController extends BaseController
             $message->setContent($form->get("content"));
             $message->setAuthorid($user->getId());
 
+
+            // Using symfony Validator to valide message data before saving in the database
+            $errors = $this->validator->validate($message);
+            if (count($errors) > 0) {
+
+                foreach ($errors as $error) {
+                    $errorMsg .= $error->getMessage(). '<br>';
+                }
+
+                goto sendResponse;
+            }
 
             if (!$this->messageRepo->create($message)) {
                 $errorMsg = "Une erreur e message d'être posté en db";

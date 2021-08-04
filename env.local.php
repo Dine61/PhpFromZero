@@ -5,7 +5,7 @@
 // The entries defined by default here is required
 // You can add any entry you want in the ["params"] section
 return [
-    "env" => "prod",
+    "env" => "dev",
     "enableLog" => false,
     "baseurl" => "http://localhost:9000",
     "params" => [

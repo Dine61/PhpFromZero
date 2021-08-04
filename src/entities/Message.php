@@ -3,6 +3,9 @@
 namespace App\Entities;
 
 use PhpFromZero\Entity\BaseEntity;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+
 
 /**
  * Message Entity
@@ -26,19 +29,24 @@ class Message extends BaseEntity
      */
     protected $content;
 
-    
+
     /**
      * @var int The User id who post the message 
      */
     protected $authorid;
 
-    
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('title', new NotBlank(message: "Le titre ne peut être null"));
+    }
+
 
     /**
      * Get the message title
      *
      * @return  String
-     */ 
+     */
     public function getTitle()
     {
         return $this->title;
@@ -50,7 +58,7 @@ class Message extends BaseEntity
      * @param  String  $title  The message title
      *
      * 
-     */ 
+     */
     public function setTitle(?String $title)
     {
         $this->title = $title;
@@ -62,7 +70,7 @@ class Message extends BaseEntity
      * Get the message content
      *
      * @return  String
-     */ 
+     */
     public function getContent()
     {
         return $this->content;
@@ -74,7 +82,7 @@ class Message extends BaseEntity
      * @param  String  $content  The message content
      *
      * 
-     */ 
+     */
     public function setContent(?String $content)
     {
         $this->content = $content;
@@ -87,7 +95,7 @@ class Message extends BaseEntity
      * Get the User id who post the message
      *
      * @return  int
-     */ 
+     */
     public function getAuthorid()
     {
         return $this->authorid;
@@ -98,7 +106,7 @@ class Message extends BaseEntity
      *
      * @param  int  $authorid  The User id who post the message
      *
-     */ 
+     */
     public function setAuthorid(int $authorid)
     {
         $this->authorid = $authorid;

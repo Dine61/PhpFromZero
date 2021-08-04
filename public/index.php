@@ -33,7 +33,6 @@ use PhpFromZero\Utils\Utils;
 
 
 
-
 // We are setting our costum error handler
 // So, for any error, Php will call this function
 // Like that, we can handle error as we want

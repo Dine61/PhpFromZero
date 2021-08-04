@@ -5,6 +5,7 @@ namespace PhpFromZero\Security;
 use PhpFromZero\Controller\BaseController;
 use PhpFromZero\Error\BadCredentialsError;
 
+
 /**
  * 
  * Security base Controller class

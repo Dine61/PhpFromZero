@@ -3,6 +3,9 @@
 namespace App\Entities;
 
 use PhpFromZero\Entity\BaseEntity;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * User entity
@@ -47,6 +50,18 @@ class User extends BaseEntity
      */
     protected $role =  "ROLE_COPAIN";
 
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('email', new Assert\Email([
+            'message' => 'The email "{{ value }}" is not a valid email.',
+        ]));
+
+        $metadata->addPropertyConstraint('age', new Assert\GreaterThan([
+            'value' => 18,
+            "message"=> "You must have at least 18 year old"
+        ]));
+    }
 
 
     /**
