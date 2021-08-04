@@ -1,0 +1,46 @@
+<form class action="index.html" method="post">
+  <label for"name">Nom</label>
+  <input type="text" id="name" placeholder="Votre nom">
+  <label for"Email">Email</label>
+  <input type="text" id="Email" placeholder="Votre Email">
+  <input type="submit" valie="OK" class="btn">
+</form>
+
+ style{
+  form{
+   margin: 60% 0 25% 25%;
+ }
+ label{
+  font-weight: bold;
+  font-size: 20px;
+  margin-rigth: 10px;
+  Color: #777;
+ }
+
+ input[type="text"]{
+ padding: 10px;
+ font-size : 20px;
+ margin-rigth : 20px;
+ border: 2px solid #ddd;
+ border-redus: 3px;
+
+ }
+
+ .btn{
+  color: #fff;
+  font-size : 20px;
+  font-weight : bold;
+  padding: 11px;
+  background: #02b8dd;
+  border-style: none;
+ 
+ }
+ 
+ .btn:hover{
+  color: #fff;
+  background: #444;
+ }
+    
+
+
+}
